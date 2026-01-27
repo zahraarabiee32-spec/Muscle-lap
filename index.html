@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Pro - تطبيق اللياقة البدنية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
+</head>
+<body>
+    <!-- شريط التنقل العلوي -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">💪</span>
+                <h1>Fitness Pro</h1>
+            </div>
+            <div class="nav-links">
+                <button id="theme-toggle" class="theme-btn" aria-label="تبديل الوضع الداكن/الفاتح">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="login-btn" class="btn btn-outline">تسجيل الدخول</button>
+                <button id="register-btn" class="btn btn-primary">إنشاء حساب</button>
+                <button id="logout-btn" class="btn btn-danger" style="display: none;">تسجيل الخروج</button>
+                <button id="admin-btn" class="btn btn-admin" style="display: none;">لوحة التحكم</button>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- نافذة تسجيل الدخول/إنشاء حساب -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">تسجيل الدخول</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="login-form" class="form-container">
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">كلمة المرور</label>
+                        <input type="password" id="password" placeholder="أدخل كلمة المرور">
+                    </div>
+                    <button id="submit-login" class="btn btn-primary btn-block">تسجيل الدخول</button>
+                    <p class="form-switch">ليس لديك حساب؟ <a href="#" id="switch-to-register">إنشاء حساب</a></p>
+                </div>
+                
+                <div id="register-form" class="form-container" style="display: none;">
+                    <div class="form-group">
+                        <label for="reg-email">البريد الإلكتروني</label>
+                        <input type="email" id="reg-email" placeholder="أدخل بريدك الإلكتروني">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">كلمة المرور</label>
+                        <input type="password" id="reg-password" placeholder="أنشئ كلمة مرور قوية">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-name">الاسم الكامل</label>
+                        <input type="text" id="reg-name" placeholder="أدخل اسمك الكامل">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-type">نوع المستخدم</label>
+                        <select id="user-type">
+                            <option value="trainee">متدرب</option>
+                            <option value="trainer">مدرب</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="level-group">
+                        <label for="trainee-level">المستوى</label>
+                        <select id="trainee-level">
+                            <option value="beginner">مبتدئ</option>
+                            <option value="advanced">محترف</option>
+                        </select>
+                    </div>
+                    <button id="submit-register" class="btn btn-primary btn-block">إنشاء حساب</button>
+                    <p class="form-switch">لديك حساب بالفعل؟ <a href="#" id="switch-to-login">تسجيل الدخول</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <!-- بانر العرض الإطلاق -->
+        <section class="launch-banner">
+            <div class="banner-content">
+                <h2>عرض الإطلاق الخاص!</h2>
+                <p>أول 10 متدربين يحصلون على التطبيق كاملًا (كورس تدريبي + نظام غذائي + متابعة) مجانًا!</p>
+                <button id="join-offer" class="btn btn-primary">انضم الآن</button>
+                <div class="counter">
+                    <span id="spots-left">10</span> متدرب متبقي من العرض
+                </div>
+            </div>
+        </section>
+
+        <!-- المحتوى المجاني -->
+        <section class="free-content">
+            <h2 class="section-title">محتوى مجاني متاح للجميع</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon warmup">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>تمارين الإحماء</h3>
+                    <p>مجموعة من تمارين الإحماء الأساسية قبل بدء التمرين</p>
+                    <button class="btn btn-outline view-warmup">عرض التمارين</button>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon bmi">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>حساب مؤشر كتلة الجسم</h3>
+                    <p>احسب مؤشر كتلة الجسم (BMI) الخاص بك</p>
+                    <button class="btn btn-outline open-bmi">احسب الآن</button>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon ideal-weight">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <h3>حساب الوزن المثالي</h3>
+                    <p>اكتشف الوزن المثالي لجسمك بناءً على طولك</p>
+                    <button class="btn btn-outline open-ideal-weight">احسب الآن</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- منطقة الصور الترويجية -->
+        <section class="promotional-section">
+            <h2 class="section-title">إعلانات وتحفيزات</h2>
+            <div class="promotional-grid">
+                <div class="promo-card">
+                    <div class="promo-placeholder">
+                        <i class="fas fa-ad"></i>
+                        <p>مساحة إعلانية</p>
+                    </div>
+                </div>
+                <div class="promo-card">
+                    <div class="promo-placeholder">
+                        <i class="fas fa-bullhorn"></i>
+                        <p>عروض مؤقتة</p>
+                    </div>
+                </div>
+                <div class="promo-card">
+                    <div class="promo-placeholder">
+                        <i class="fas fa-medal"></i>
+                        <p>صور تحفيزية</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- أيقونات مناطق الجسم -->
+        <section class="body-parts">
+            <h2 class="section-title">تمارين مناطق الجسم</h2>
+            <div class="body-grid">
+                <div class="body-card" data-part="chest">
+                    <div class="body-icon chest">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>الصدر</h3>
+                    <p class="exercise-count">5 تمارين</p>
+                </div>
+                
+                <div class="body-card" data-part="arm">
+                    <div class="body-icon arm">
+                        <i class="fas fa-hand-fist"></i>
+                    </div>
+                    <h3>الذراع</h3>
+                    <p class="exercise-count">6 تمارين</p>
+                </div>
+                
+                <div class="body-card" data-part="shoulder">
+                    <div class="body-icon shoulder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>الكتف</h3>
+                    <p class="exercise-count">4 تمارين</p>
+                </div>
+                
+                <div class="body-card" data-part="back">
+                    <div class="body-icon back">
+                        <i class="fas fa-vest"></i>
+                    </div>
+                    <h3>الظهر</h3>
+                    <p class="exercise-count">5 تمارين</p>
+                </div>
+                
+                <div class="body-card" data-part="abs">
+                    <div class="body-icon abs">
+                        <i class="fas fa-waist"></i>
+                    </div>
+                    <h3>البطن</h3>
+                    <p class="exercise-count">6 تمارين</p>
+                </div>
+                
+                <div class="body-card" data-part="leg">
+                    <div class="body-icon leg">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>الرجل</h3>
+                    <p class="exercise-count">7 تمارين</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم الاشتراك -->
+        <section class="subscription-section">
+            <div class="subscription-card">
+                <h2>اشترك الآن للحصول على محتوى متكامل</h2>
+                <p>احصل على برامج تدريبية مخصصة، أنظمة غذائية، ومتابعة من المدرب</p>
+                <div class="price">
+                    <span class="amount">$19.99</span>
+                    <span class="period">/شهريًا</span>
+                </div>
+                <button id="subscribe-btn" class="btn btn-primary btn-large">اشترك الآن</button>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Zain Cash</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- نافذة تمارين الإحماء -->
+    <div id="warmup-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تمارين الإحماء</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="exercises-list">
+                    <!-- تمارين الإحماء ستظهر هنا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة حساب BMI -->
+    <div id="bmi-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>حساب مؤشر كتلة الجسم (BMI)</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="height">الطول (سم)</label>
+                    <input type="number" id="height" placeholder="أدخل طولك بالسنتيمتر" min="100" max="250">
+                </div>
+                <div class="form-group">
+                    <label for="weight">الوزن (كجم)</label>
+                    <input type="number" id="weight" placeholder="أدخل وزنك بالكيلوجرام" min="30" max="300">
+                </div>
+                <button id="calculate-bmi" class="btn btn-primary btn-block">احسب</button>
+                <div id="bmi-result" class="result-container" style="display: none;">
+                    <h3>نتيجة حساب BMI</h3>
+                    <div class="bmi-bar">
+                        <div class="bmi-fill" id="bmi-fill"></div>
+                    </div>
+                    <div class="bmi-labels">
+                        <span>نحافة</span>
+                        <span>طبيعي</span>
+                        <span>زيادة وزن</span>
+                        <span>سمنة</span>
+                    </div>
+                    <p class="bmi-value">مؤشر كتلة الجسم: <span id="bmi-value">0</span></p>
+                    <p class="bmi-category">الفئة: <span id="bmi-category">غير محسوبة</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الوزن المثالي -->
+    <div id="ideal-weight-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>حساب الوزن المثالي</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="ideal-height">الطول (سم)</label>
+                    <input type="number" id="ideal-height" placeholder="أدخل طولك بالسنتيمتر" min="100" max="250">
+                </div>
+                <button id="calculate-ideal-weight" class="btn btn-primary btn-block">احسب</button>
+                <div id="ideal-weight-result" class="result-container" style="display: none;">
+                    <h3>الوزن المثالي لك</h3>
+                    <div class="result-card">
+                        <p>الوزن المثالي لطولك هو:</p>
+                        <p class="weight-value"><span id="ideal-weight-value">0</span> كجم</p>
+                        <p class="weight-range">النطاق الصحي: <span id="weight-range">0-0</span> كجم</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تمارين منطقة الجسم -->
+    <div id="exercises-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="exercises-title">تمارين الصدر</h2>
+                <button class="close-btn">&times;</button>
+                <button id="add-exercise-btn" class="btn btn-primary btn-small" style="display: none;">إضافة تمرين</button>
+            </div>
+            <div class="modal-body">
+                <div class="exercises-list">
+                    <!-- تمارين منطقة الجسم ستظهر هنا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة/تعديل تمرين (للمدرب فقط) -->
+    <div id="edit-exercise-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="edit-exercise-title">إضافة تمرين جديد</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exercise-name">اسم التمرين</label>
+                    <input type="text" id="exercise-name" placeholder="أدخل اسم التمرين">
+                </div>
+                <div class="form-group">
+                    <label for="exercise-description">وصف التمرين</label>
+                    <textarea id="exercise-description" placeholder="أدخل وصف التمرين"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exercise-reps">التكرارات / المدة</label>
+                    <input type="text" id="exercise-reps" placeholder="مثال: 3 مجموعات × 10 تكرارات">
+                </div>
+                <div class="form-group">
+                    <label for="exercise-image">رابط الصورة (اختياري)</label>
+                    <input type="text" id="exercise-image" placeholder="أدخل رابط الصورة">
+                </div>
+                <div class="form-group">
+                    <label for="exercise-body-part">منطقة الجسم</label>
+                    <select id="exercise-body-part">
+                        <option value="chest">الصدر</option>
+                        <option value="arm">الذراع</option>
+                        <option value="shoulder">الكتف</option>
+                        <option value="back">الظهر</option>
+                        <option value="abs">البطن</option>
+                        <option value="leg">الرجل</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button id="save-exercise" class="btn btn-primary">حفظ</button>
+                    <button id="cancel-edit" class="btn btn-outline">إلغاء</button>
+                    <button id="delete-exercise" class="btn btn-danger" style="display: none;">حذف التمرين</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الدفع -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>اشترك الآن</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="price-summary">
+                    <h3>ملخص الاشتراك</h3>
+                    <div class="price-item">
+                        <span>الاشتراك الشهري</span>
+                        <span>$19.99</span>
+                    </div>
+                    <div class="price-total">
+                        <span>المبلغ الإجمالي</span>
+                        <span>$19.99</span>
+                    </div>
+                </div>
+                <div class="payment-options">
+                    <h3>اختر طريقة الدفع</h3>
+                    <div class="payment-method">
+                        <input type="radio" id="mastercard" name="payment-method" value="mastercard" checked>
+                        <label for="mastercard">
+                            <i class="fab fa-cc-mastercard"></i>
+                            MasterCard
+                        </label>
+                    </div>
+                    <div class="payment-method">
+                        <input type="radio" id="zain-cash" name="payment-method" value="zain-cash">
+                        <label for="zain-cash">
+                            <i class="fas fa-mobile-alt"></i>
+                            Zain Cash
+                        </label>
+                    </div>
+                </div>
+                <button id="process-payment" class="btn btn-primary btn-block">اكمل عملية الدفع</button>
+                <p class="payment-note">سيتم تجديد الاشتراك تلقائيًا كل شهر حتى تقوم بالإلغاء</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة تحكم المدرب (تظهر للمدرب فقط) -->
+    <div id="admin-dashboard" class="modal admin-modal">
+        <div class="modal-content admin-content">
+            <div class="modal-header">
+                <h2>لوحة تحكم المدرب</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="admin-body">
+                <div class="admin-sidebar">
+                    <button class="admin-tab active" data-tab="trainees">المتدربين</button>
+                    <button class="admin-tab" data-tab="exercises">التمارين</button>
+                    <button class="admin-tab" data-tab="courses">الكورسات</button>
+                    <button class="admin-tab" data-tab="nutrition">الأنظمة الغذائية</button>
+                    <button class="admin-tab" data-tab="pricing">الأسعار</button>
+                    <button class="admin-tab" data-tab="free-content">المحتوى المجاني</button>
+                </div>
+                <div class="admin-main">
+                    <div id="trainees-tab" class="admin-tab-content active">
+                        <h3>إدارة المتدربين</h3>
+                        <div class="trainees-list">
+                            <!-- قائمة المتدربين ستظهر هنا -->
+                        </div>
+                    </div>
+                    <div id="exercises-tab" class="admin-tab-content">
+                        <h3>إدارة التمارين</h3>
+                        <p>يمكنك إدارة التمارين من خلال النقر على أيقونات مناطق الجسم</p>
+                    </div>
+                    <div id="courses-tab" class="admin-tab-content">
+                        <h3>إدارة الكورسات التدريبية</h3>
+                        <div class="courses-list">
+                            <!-- قائمة الكورسات ستظهر هنا -->
+                        </div>
+                        <button id="add-course" class="btn btn-primary">إضافة كورس جديد</button>
+                    </div>
+                    <div id="nutrition-tab" class="admin-tab-content">
+                        <h3>إدارة الأنظمة الغذائية</h3>
+                        <div class="nutrition-list">
+                            <!-- قائمة الأنظمة الغذائية ستظهر هنا -->
+                        </div>
+                        <button id="add-nutrition" class="btn btn-primary">إضافة نظام غذائي جديد</button>
+                    </div>
+                    <div id="pricing-tab" class="admin-tab-content">
+                        <h3>إدارة الأسعار</h3>
+                        <div class="form-group">
+                            <label for="subscription-price">سعر الاشتراك الشهري ($)</label>
+                            <input type="number" id="subscription-price" value="19.99" min="1" max="100">
+                        </div>
+                        <button id="save-price" class="btn btn-primary">حفظ السعر</button>
+                    </div>
+                    <div id="free-content-tab" class="admin-tab-content">
+                        <h3>إدارة المحتوى المجاني</h3>
+                        <p>يمكنك تعديل المحتوى المجاني من خلال النقر على أقسامه في الصفحة الرئيسية</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الاشعارات -->
+    <div id="notification" class="notification"></div>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">💪</span>
+                <h3>Fitness Pro</h3>
+            </div>
+            <div class="footer-links">
+                <a href="#">سياسة الخصوصية</a>
+                <a href="#">الشروط والأحكام</a>
+                <a href="#">اتصل بنا</a>
+            </div>
+            <div class="footer-copy">
+                <p>&copy; 2023 Fitness Pro. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
