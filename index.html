@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness Pro - تطبيق اللياقة البدنية</title>
+    <title>Muscle Lap - منصة اللياقة البدنية المتكاملة</title>
+    <!-- روابط CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
 </head>
 <body>
@@ -17,7 +18,7 @@
         <div class="nav-container">
             <div class="logo">
                 <span class="logo-icon">💪</span>
-                <h1>Fitness Pro</h1>
+                <h1>Muscle Lap</h1>
             </div>
             <div class="nav-links">
                 <button id="theme-toggle" class="theme-btn" aria-label="تبديل الوضع الداكن/الفاتح">
@@ -45,7 +46,11 @@
                 <div id="login-form" class="form-container">
                     <div class="form-group">
                         <label for="email">البريد الإلكتروني</label>
-                        <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني">
+                        <input type="email" id="email" placeholder="example@fitness.com">
+                        <div class="form-hint">
+                            <i class="fas fa-info-circle"></i>
+                            يجب أن ينتهي البريد الإلكتروني بـ @fitness.com
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="password">كلمة المرور</label>
@@ -58,7 +63,11 @@
                 <div id="register-form" class="form-container" style="display: none;">
                     <div class="form-group">
                         <label for="reg-email">البريد الإلكتروني</label>
-                        <input type="email" id="reg-email" placeholder="أدخل بريدك الإلكتروني">
+                        <input type="email" id="reg-email" placeholder="example@fitness.com">
+                        <div class="form-hint">
+                            <i class="fas fa-info-circle"></i>
+                            يجب أن ينتهي البريد الإلكتروني بـ @fitness.com
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="reg-password">كلمة المرور</label>
@@ -141,21 +150,30 @@
             <h2 class="section-title">إعلانات وتحفيزات</h2>
             <div class="promotional-grid">
                 <div class="promo-card">
-                    <div class="promo-placeholder">
+                    <div class="promo-placeholder" id="promo-image-1">
                         <i class="fas fa-ad"></i>
                         <p>مساحة إعلانية</p>
                     </div>
-                </div>
-                <div class="promo-card">
-                    <div class="promo-placeholder">
-                        <i class="fas fa-bullhorn"></i>
-                        <p>عروض مؤقتة</p>
+                    <div class="promo-actions" style="display: none;">
+                        <button class="btn btn-outline btn-small change-promo-image" data-id="1">تغيير الصورة</button>
                     </div>
                 </div>
                 <div class="promo-card">
-                    <div class="promo-placeholder">
+                    <div class="promo-placeholder" id="promo-image-2">
+                        <i class="fas fa-bullhorn"></i>
+                        <p>عروض مؤقتة</p>
+                    </div>
+                    <div class="promo-actions" style="display: none;">
+                        <button class="btn btn-outline btn-small change-promo-image" data-id="2">تغيير الصورة</button>
+                    </div>
+                </div>
+                <div class="promo-card">
+                    <div class="promo-placeholder" id="promo-image-3">
                         <i class="fas fa-medal"></i>
                         <p>صور تحفيزية</p>
+                    </div>
+                    <div class="promo-actions" style="display: none;">
+                        <button class="btn btn-outline btn-small change-promo-image" data-id="3">تغيير الصورة</button>
                     </div>
                 </div>
             </div>
@@ -170,7 +188,7 @@
                         <i class="fas fa-dumbbell"></i>
                     </div>
                     <h3>الصدر</h3>
-                    <p class="exercise-count">5 تمارين</p>
+                    <p class="exercise-count" id="chest-count">5 تمارين</p>
                 </div>
                 
                 <div class="body-card" data-part="arm">
@@ -178,7 +196,7 @@
                         <i class="fas fa-hand-fist"></i>
                     </div>
                     <h3>الذراع</h3>
-                    <p class="exercise-count">6 تمارين</p>
+                    <p class="exercise-count" id="arm-count">6 تمارين</p>
                 </div>
                 
                 <div class="body-card" data-part="shoulder">
@@ -186,7 +204,7 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <h3>الكتف</h3>
-                    <p class="exercise-count">4 تمارين</p>
+                    <p class="exercise-count" id="shoulder-count">4 تمارين</p>
                 </div>
                 
                 <div class="body-card" data-part="back">
@@ -194,7 +212,7 @@
                         <i class="fas fa-vest"></i>
                     </div>
                     <h3>الظهر</h3>
-                    <p class="exercise-count">5 تمارين</p>
+                    <p class="exercise-count" id="back-count">5 تمارين</p>
                 </div>
                 
                 <div class="body-card" data-part="abs">
@@ -202,7 +220,7 @@
                         <i class="fas fa-waist"></i>
                     </div>
                     <h3>البطن</h3>
-                    <p class="exercise-count">6 تمارين</p>
+                    <p class="exercise-count" id="abs-count">6 تمارين</p>
                 </div>
                 
                 <div class="body-card" data-part="leg">
@@ -210,7 +228,7 @@
                         <i class="fas fa-running"></i>
                     </div>
                     <h3>الرجل</h3>
-                    <p class="exercise-count">7 تمارين</p>
+                    <p class="exercise-count" id="leg-count">7 تمارين</p>
                 </div>
             </div>
         </section>
@@ -346,8 +364,21 @@
                     <input type="text" id="exercise-reps" placeholder="مثال: 3 مجموعات × 10 تكرارات">
                 </div>
                 <div class="form-group">
-                    <label for="exercise-image">رابط الصورة (اختياري)</label>
-                    <input type="text" id="exercise-image" placeholder="أدخل رابط الصورة">
+                    <label for="exercise-image">صورة التمرين</label>
+                    <div class="image-upload-container">
+                        <div class="image-preview" id="exercise-image-preview">
+                            <i class="fas fa-image"></i>
+                            <span>لم يتم اختيار صورة</span>
+                        </div>
+                        <input type="file" id="exercise-image-input" accept="image/*" style="display: none;">
+                        <button type="button" class="btn btn-outline btn-block" id="select-image-btn">اختيار صورة</button>
+                    </div>
+                    <div class="upload-progress" id="exercise-upload-progress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="exercise-progress-fill"></div>
+                        </div>
+                        <span class="progress-text" id="exercise-progress-text">0%</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="exercise-body-part">منطقة الجسم</label>
@@ -359,6 +390,12 @@
                         <option value="abs">البطن</option>
                         <option value="leg">الرجل</option>
                     </select>
+                </div>
+                <div class="form-group" id="assign-trainees-group" style="display: none;">
+                    <label>تعيين التمرين للمتدربين:</label>
+                    <div class="trainees-checkbox-list" id="trainees-checkbox-list">
+                        <!-- قائمة المتدربين ستظهر هنا -->
+                    </div>
                 </div>
                 <div class="button-group">
                     <button id="save-exercise" class="btn btn-primary">حفظ</button>
@@ -381,11 +418,11 @@
                     <h3>ملخص الاشتراك</h3>
                     <div class="price-item">
                         <span>الاشتراك الشهري</span>
-                        <span>$19.99</span>
+                        <span id="payment-price">$19.99</span>
                     </div>
                     <div class="price-total">
                         <span>المبلغ الإجمالي</span>
-                        <span>$19.99</span>
+                        <span id="payment-total">$19.99</span>
                     </div>
                 </div>
                 <div class="payment-options">
@@ -411,11 +448,41 @@
         </div>
     </div>
 
-    <!-- لوحة تحكم المدرب (تظهر للمدرب فقط) -->
+    <!-- نافذة تغيير الصورة الترويجية -->
+    <div id="image-upload-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="image-upload-title">تحميل صورة ترويجية</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="image-upload-container">
+                    <div class="image-preview" id="upload-image-preview">
+                        <i class="fas fa-image"></i>
+                        <span>لم يتم اختيار صورة</span>
+                    </div>
+                    <input type="file" id="upload-image-input" accept="image/*" style="display: none;">
+                    <button type="button" class="btn btn-outline btn-block" id="select-upload-image-btn">اختيار صورة</button>
+                </div>
+                <div class="upload-progress" id="promo-upload-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="promo-progress-fill"></div>
+                    </div>
+                    <span class="progress-text" id="promo-progress-text">0%</span>
+                </div>
+                <div class="button-group">
+                    <button id="save-uploaded-image" class="btn btn-primary">حفظ الصورة</button>
+                    <button id="cancel-image-upload" class="btn btn-outline">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة تحكم المدرب -->
     <div id="admin-dashboard" class="modal admin-modal">
         <div class="modal-content admin-content">
             <div class="modal-header">
-                <h2>لوحة تحكم المدرب</h2>
+                <h2>لوحة تحكم المدرب - Muscle Lap</h2>
                 <button class="close-btn">&times;</button>
             </div>
             <div class="admin-body">
@@ -424,20 +491,26 @@
                     <button class="admin-tab" data-tab="exercises">التمارين</button>
                     <button class="admin-tab" data-tab="courses">الكورسات</button>
                     <button class="admin-tab" data-tab="nutrition">الأنظمة الغذائية</button>
-                    <button class="admin-tab" data-tab="pricing">الأسعار</button>
-                    <button class="admin-tab" data-tab="free-content">المحتوى المجاني</button>
+                    <button class="admin-tab" data-tab="pricing">الأسعار والدفع</button>
+                    <button class="admin-tab" data-tab="promotional">المحتوى الترويجي</button>
+                    <button class="admin-tab" data-tab="payment-info">معلومات الدفع</button>
                 </div>
                 <div class="admin-main">
+                    <!-- تبويب المتدربين -->
                     <div id="trainees-tab" class="admin-tab-content active">
                         <h3>إدارة المتدربين</h3>
                         <div class="trainees-list">
                             <!-- قائمة المتدربين ستظهر هنا -->
                         </div>
                     </div>
+                    
+                    <!-- تبويب التمارين -->
                     <div id="exercises-tab" class="admin-tab-content">
                         <h3>إدارة التمارين</h3>
-                        <p>يمكنك إدارة التمارين من خلال النقر على أيقونات مناطق الجسم</p>
+                        <p>يمكنك إدارة التمارين من خلال النقر على أيقونات مناطق الجسم في الصفحة الرئيسية</p>
                     </div>
+                    
+                    <!-- تبويب الكورسات -->
                     <div id="courses-tab" class="admin-tab-content">
                         <h3>إدارة الكورسات التدريبية</h3>
                         <div class="courses-list">
@@ -445,6 +518,8 @@
                         </div>
                         <button id="add-course" class="btn btn-primary">إضافة كورس جديد</button>
                     </div>
+                    
+                    <!-- تبويب الأنظمة الغذائية -->
                     <div id="nutrition-tab" class="admin-tab-content">
                         <h3>إدارة الأنظمة الغذائية</h3>
                         <div class="nutrition-list">
@@ -452,24 +527,89 @@
                         </div>
                         <button id="add-nutrition" class="btn btn-primary">إضافة نظام غذائي جديد</button>
                     </div>
+                    
+                    <!-- تبويب الأسعار والدفع -->
                     <div id="pricing-tab" class="admin-tab-content">
                         <h3>إدارة الأسعار</h3>
                         <div class="form-group">
                             <label for="subscription-price">سعر الاشتراك الشهري ($)</label>
-                            <input type="number" id="subscription-price" value="19.99" min="1" max="100">
+                            <input type="number" id="subscription-price" value="19.99" min="1" max="100" step="0.01">
                         </div>
                         <button id="save-price" class="btn btn-primary">حفظ السعر</button>
+                        
+                        <h3>طرق الدفع المتاحة</h3>
+                        <div class="payment-methods-admin">
+                            <div class="payment-method-admin">
+                                <span class="payment-icon">
+                                    <i class="fab fa-cc-mastercard"></i>
+                                </span>
+                                <span class="payment-name">MasterCard</span>
+                                <span class="payment-status active">مفعلة</span>
+                            </div>
+                            <div class="payment-method-admin">
+                                <span class="payment-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </span>
+                                <span class="payment-name">Zain Cash</span>
+                                <span class="payment-status active">مفعلة</span>
+                            </div>
+                        </div>
                     </div>
-                    <div id="free-content-tab" class="admin-tab-content">
-                        <h3>إدارة المحتوى المجاني</h3>
-                        <p>يمكنك تعديل المحتوى المجاني من خلال النقر على أقسامه في الصفحة الرئيسية</p>
+                    
+                    <!-- تبويب المحتوى الترويجي -->
+                    <div id="promotional-tab" class="admin-tab-content">
+                        <h3>إدارة المحتوى الترويجي</h3>
+                        <p>يمكنك إدارة الصور الترويجية من خلال النقر على أزرار "تغيير الصورة" في الصفحة الرئيسية</p>
+                        
+                        <h4>المحتوى المجاني</h4>
+                        <div class="free-content-admin">
+                            <div class="free-content-item">
+                                <h5>تمارين الإحماء</h5>
+                                <p>مجموعة من 3 تمارين إحماء أساسية</p>
+                                <button class="btn btn-outline btn-small edit-warmup">تعديل</button>
+                            </div>
+                            <div class="free-content-item">
+                                <h5>حاسبة BMI</h5>
+                                <p>أداة لحساب مؤشر كتلة الجسم</p>
+                                <button class="btn btn-outline btn-small edit-bmi">تعديل</button>
+                            </div>
+                            <div class="free-content-item">
+                                <h5>حاسبة الوزن المثالي</h5>
+                                <p>أداة لحساب الوزن المثالي</p>
+                                <button class="btn btn-outline btn-small edit-ideal-weight">تعديل</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- تبويب معلومات الدفع (للمدرب فقط) -->
+                    <div id="payment-info-tab" class="admin-tab-content">
+                        <h3>معلومات الدفع الخاصة بالمدرب</h3>
+                        <div class="payment-info-form">
+                            <div class="form-group">
+                                <label for="mastercard-number">رقم MasterCard</label>
+                                <input type="text" id="mastercard-number" placeholder="أدخل رقم البطاقة">
+                                <div class="form-hint">
+                                    <i class="fas fa-lock"></i>
+                                    هذه المعلومات خاصة بالمدرب فقط ولا تظهر للمتدربين
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="zaincash-number">رقم Zain Cash</label>
+                                <input type="text" id="zaincash-number" placeholder="أدخل رقم Zain Cash">
+                                <div class="form-hint">
+                                    <i class="fas fa-lock"></i>
+                                    هذه المعلومات خاصة بالمدرب فقط ولا تظهر للمتدربين
+                                </div>
+                            </div>
+                            <button id="save-payment-info" class="btn btn-primary">حفظ معلومات الدفع</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- الاشعارات -->
+    <!-- الإشعارات -->
     <div id="notification" class="notification"></div>
 
     <!-- تذييل الصفحة -->
@@ -477,7 +617,7 @@
         <div class="footer-content">
             <div class="footer-logo">
                 <span class="logo-icon">💪</span>
-                <h3>Fitness Pro</h3>
+                <h3>Muscle Lap</h3>
             </div>
             <div class="footer-links">
                 <a href="#">سياسة الخصوصية</a>
@@ -485,11 +625,14 @@
                 <a href="#">اتصل بنا</a>
             </div>
             <div class="footer-copy">
-                <p>&copy; 2023 Fitness Pro. جميع الحقوق محفوظة.</p>
+                <p>&copy; 2023 Muscle Lap. جميع الحقوق محفوظة.</p>
             </div>
         </div>
     </footer>
 
+    <!-- ملفات JavaScript -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
